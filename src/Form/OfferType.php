@@ -15,8 +15,6 @@ class OfferType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('salary')
-            ->add('createdAt')
-            ->add('updatedAt')
         ;
     }
 

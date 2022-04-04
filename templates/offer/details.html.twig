@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OfferController!
+{% endblock %}
+
+{% block body %}
+	{% if is_granted('ROLE_COMPANY') %}
+		<a href={{path('app_offer_create')}}>
+			<button class="btn btn-warning m-3">Create an offer</button>
+		</a>
+	{% endif %}
+	<div class="card border-secondary my-3 glass-post text-black">
+		<div class="card-header">
+			<p class="text-decoration-none">{{offer.title}}</p>
+			<small class="text-decoration-none">{{offer.author.name}}</small>
+		</div>
+		<div class="card-body">
+			<p class="card-text">
+				{{ offer.description }}</p>
+		</div>
+		<div class="card-footer text-muted ">
+			<span>
+				{{ offer.createdAt | date('d/m/Y') }}
+			</span>
+		</div>
+	</div>
+{% endblock %}

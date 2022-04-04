@@ -98,6 +98,23 @@ class Offer
         return $this;
     }
 
+    #[ORM\PrePersist]
+    public function defaultCreatedAt(): self
+    {
+        $this->createdAt = new \DateTime();
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function defaultUpdatedAt(): self
+    {
+        $this->updatedAt = new \DateTime();
+
+        return $this;
+    }
+
     public function getAuthor(): ?Company
     {
         return $this->author;

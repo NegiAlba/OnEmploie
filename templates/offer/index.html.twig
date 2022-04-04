@@ -1,20 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OfferController!{% endblock %}
+{% block title %}Hello OfferController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/lilkr/Desktop/Work/Talis/OnEmploie/src/Controller/OfferController.php'|file_link(0) }}">src/Controller/OfferController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/lilkr/Desktop/Work/Talis/OnEmploie/templates/offer/index.html.twig'|file_link(0) }}">templates/offer/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{% if is_granted('ROLE_COMPANY') %}
+		<a href={{path('app_offer_create')}}>
+			<button class="btn btn-warning m-3">Create an offer</button>
+		</a>
+	{% endif %}
+	{% for offer in offers %}
+		<div class="card border-secondary my-3 glass-post text-black">
+			<div class="card-header">
+				<p class="text-decoration-none">{{offer.title}}</p>
+				<small class="text-decoration-none">{{offer.author.name}}</small>
+			</div>
+			<div class="card-body">
+				<p class="card-text">
+					{{ offer.description }}</p>
+			</div>
+			<div class="card-footer text-muted ">
+				<span>
+					{{ offer.createdAt | date('d/m/Y') }}
+				</span>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}
