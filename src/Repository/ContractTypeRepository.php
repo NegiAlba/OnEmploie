@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Offer;
+use App\Entity\ContractType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Offer|null find($id, $lockMode = null, $lockVersion = null)
- * @method Offer|null findOneBy(array $criteria, array $orderBy = null)
- * @method Offer[]    findAll()
- * @method Offer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ContractType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ContractType|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ContractType[]    findAll()
+ * @method ContractType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OfferRepository extends ServiceEntityRepository
+class ContractTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Offer::class);
+        parent::__construct($registry, ContractType::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Offer $entity, bool $flush = true): void
+    public function add(ContractType $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class OfferRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Offer $entity, bool $flush = true): void
+    public function remove(ContractType $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class OfferRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Offer[] Returns an array of Offer objects
+    //  * @return ContractType[] Returns an array of ContractType objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class OfferRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Offer
+    public function findOneBySomeField($value): ?ContractType
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

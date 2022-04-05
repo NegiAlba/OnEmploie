@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
@@ -32,6 +34,23 @@ class Offer
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     private $author;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'offers')]
+    private $categories;
+
+    #[ORM\ManyToOne(targetEntity: ContractType::class, inversedBy: 'offers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $contractType;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +142,42 @@ class Offer
     public function setAuthor(?Company $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getContractType(): ?ContractType
+    {
+        return $this->contractType;
+    }
+
+    public function setContractType(?ContractType $contractType): self
+    {
+        $this->contractType = $contractType;
 
         return $this;
     }
