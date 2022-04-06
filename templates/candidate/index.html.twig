@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile page - Candidate
+{% endblock %}
+
+{% block body %}
+	<div class="glass p-3">
+		{{form_start(form)}}
+		{{form_row(form)}}
+		<input type="submit" class="btn btn-success" value="Envoyer">
+		{{form_end(form)}}
+	</div>
+{% endblock %}

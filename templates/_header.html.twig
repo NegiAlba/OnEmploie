@@ -1,0 +1,54 @@
+<header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+		<div class="container-fluid">
+			<a class="navbar-brand" href={{ path('app_home') }}>OnEmploie.com</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav"></div>
+		</div>
+		<div class="container-fluid justify-content-end">
+			<ul class="navbar-nav">
+				{% if app.user %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="btn btn-outline-info nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_admin') }}>Panel admin</a>
+						</li>
+					{% endif %}
+					{% if is_granted('ROLE_COMPANY') %}
+						<li class="btn btn-outline-primary nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_offer_create') }}>Create an offer</a>
+						</li>
+						<li class="btn btn-outline-warning nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_offer_index' ) }}>All the offers</a>
+						</li>
+						<li class="btn btn-outline-success nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_company_offers' ) }}>Your Offers</a>
+						</li>
+					{% endif %}
+					{% if is_granted('ROLE_CANDIDATE') %}
+						<li class="btn btn-outline-primary nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_candidate_profile' ) }}>Profile</a>
+						</li>
+						<li class="btn btn-outline-success nav-item mx-2">
+							<a class="nav-link text-white" href={{ path('app_candidate_offers' ) }}>Offers</a>
+						</li>
+					{% endif %}
+					<li class="btn btn-outline-danger nav-item mx-2">
+						<a class="nav-link text-white" href={{ path('app_logout') }}>Logout</a>
+					</li>
+				{% else %}
+					<li class="btn btn-outline-primary nav-item mx-2">
+						<a class="nav-link text-white" href={{ path('app_registration_companyRegister') }}>Sign-up as a company</a>
+					</li>
+					<li class="btn btn-outline-warning nav-item mx-2">
+						<a class="nav-link text-white" href={{ path('app_registration_candidateRegister') }}>Sign-up as a candidate</a>
+					</li>
+					<li class="btn btn-outline-info nav-item mx-2">
+						<a class="nav-link text-white" href={{ path('app_login') }}>Login</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+</header>

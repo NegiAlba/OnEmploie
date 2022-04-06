@@ -14,9 +14,12 @@
 				<span>
 					{{ offer.createdAt | date('d/m/Y') }}
 				</span>
-				<span>
-					<a href={{ path('app_offer_details', {'id' : offer.id} ) }} class="btn btn-primary">Details</a>
-				</span>
+				{% if app.user is same as(offer.author) %}
+					<span>
+						<a href={{ path('app_offer_details', {'id' : offer.id} ) }} class="btn btn-primary">Details</a>
+						<a href={{ path('app_offer_edit', {'id' : offer.id} ) }} class="btn btn-warning">Edit offer</a>
+					</span>
+				{% endif %}
 			</div>
 		</div>
 	{% endfor %}

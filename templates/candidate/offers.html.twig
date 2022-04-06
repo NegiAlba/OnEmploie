@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offers picked for you !
+{% endblock %}
+
+{% block body %}
+	<h3 class="mt-3">There are
+		{{offers|length}}
+		offers
+																for you right now !</h3>
+
+	<a href={{path('app_candidate_applications')}} class="btn btn-warning">
+		Your applications
+		<span class="badge rounded-pill bg-primary text-dark">{{app.user.applications|length}}</span>
+	</a>
+	{% for offer in offers %}
+		<div class="card border-danger my-3 glass-post text-black">
+			<div class="card-header">
+				<p class="text-decoration-none">{{offer.title}}</p>
+				<small class="text-decoration-none">{{offer.author.name}}</small>
+			</div>
+			<div class="card-body">
+				<p class="card-text">
+					{{ offer.description }}</p>
+			</div>
+			<div class="card-footer text-muted d-flex justify-content-between">
+				<span>
+					{{ offer.createdAt | date('d/m/Y') }}
+				</span>
+				{% if app.user in offer.applicants %}
+					<span>
+						<a href={{ path('app_offer_apply', {'id' : offer.id} ) }} class="btn btn-danger">Remove application</a>
+					</span>
+				{% else %}
+					<span>
+						<a href={{ path('app_offer_apply', {'id' : offer.id} ) }} class=" btn btn-success">Apply now</a>
+					</span>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

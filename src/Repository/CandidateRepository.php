@@ -45,9 +45,9 @@ class CandidateRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Candidate[] Returns an array of Candidate objects
-    //  */
+    /*
+     * @return Candidate[] Returns an array of Candidate objects
+     */
     /*
     public function findByExampleField($value)
     {

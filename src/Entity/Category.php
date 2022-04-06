@@ -21,9 +21,13 @@ class Category
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'categories')]
     private $offers;
 
+    #[ORM\ManyToMany(targetEntity: Candidate::class, mappedBy: 'categories')]
+    private $candidates;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->candidates = new ArrayCollection();
     }
 
     public function __toString()
@@ -70,6 +74,33 @@ class Category
     {
         if ($this->offers->removeElement($offer)) {
             $offer->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidate $candidate): self
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates[] = $candidate;
+            $candidate->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): self
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            $candidate->removeCategory($this);
         }
 
         return $this;

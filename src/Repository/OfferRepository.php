@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidate;
 use App\Entity\Offer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -44,6 +45,21 @@ class OfferRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    // /**
+    //  * @return Offer[] Returns an array of Offer objects
+    //  */
+    // public function findForUser(Candidate $candidate)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.contract_type_id = :val')
+    //         ->setParameter('val', $candidate->getContractType())
+    //         ->orderBy('c.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
     // /**
     //  * @return Offer[] Returns an array of Offer objects

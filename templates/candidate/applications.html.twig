@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your applications
+{% endblock %}
+
+{% block body %}
+	{% if offers|length == 0 %}
+		<h3 class="mt-3">Apply to at least one offer for it to display here 😉</h3>
+	{% elseif offers|length == 1 %}
+		<h3 class="mt-3">You applied to only one offer so far !</h3>
+	{% else %}
+		<h3 class="mt-3">You applied to
+			{{offers|length}}
+			offers
+							so far !</h3>
+	{% endif %}
+	{% for offer in offers %}
+		<div class="card border-danger my-3 glass-post text-black">
+			<div class="card-header">
+				<p class="text-decoration-none">{{offer.title}}</p>
+				<small class="text-decoration-none">{{offer.author.name}}</small>
+			</div>
+			<div class="card-body">
+				<p class="card-text">
+					{{ offer.description }}</p>
+			</div>
+			<div class="card-footer text-muted d-flex justify-content-between">
+				<span>
+					{{ offer.createdAt | date('d/m/Y') }}
+				</span>
+				{% if app.user in offer.applicants %}
+					<span>
+						<a href={{ path('app_offer_apply', {'id' : offer.id} ) }} class="btn btn-danger">Remove application</a>
+					</span>
+				{% else %}
+					<span>
+						<a href={{ path('app_offer_apply', {'id' : offer.id} ) }} class=" btn btn-success">Apply now</a>
+					</span>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

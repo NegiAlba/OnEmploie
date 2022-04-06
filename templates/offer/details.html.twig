@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OfferController!
+{% block title %}Details for
+	{{ offer.title }}
 {% endblock %}
 
 {% block body %}
-	{% if is_granted('ROLE_COMPANY') %}
-		<a href={{path('app_offer_create')}}>
-			<button class="btn btn-warning m-3">Create an offer</button>
-		</a>
-	{% endif %}
 	<div class="card border-secondary my-3 glass-post text-black">
 		<div class="card-header">
 			<p class="text-decoration-none">{{offer.title}}</p>
@@ -23,5 +19,68 @@
 				{{ offer.createdAt | date('d/m/Y') }}
 			</span>
 		</div>
+	</div>
+
+	<div class="container">
+		{% if offer.applicants|length == 0 %}
+			<h3 class="mt-3">No applicants for this offer yet 😥</h3>
+		{% elseif offer.applicants|length == 1 %}
+			<h3 class="mt-3">There is only one applicant, maybe it's destiny !</h3>
+		{% else %}
+			<h3 class="mt-3">There are
+				{{offer.applicants|length}}
+				applicants
+																																																												so far !</h3>
+		{% endif %}
+		{% for applicant in offer.applicants %}
+			<div class="card border-secondary my-3 glass-applicant text-white">
+				<div class="card-header">
+					<p class="text-decoration-none p-3">{{applicant.email}}</p>
+				</div>
+				{% if offer.author is same as(app.user) %}
+					<div class="card-footer text-muted">
+						<span>
+							<a href="mailto:{{applicant.email}}" class="btn btn-primary">Contact</a>
+							{# <a href={{ path('app_offer_edit', {'id' : offer.id} ) }} class="btn btn-warning">Edit offer</a> #}
+						</span>
+					</div>
+				{% endif %}
+			</div>
+
+			{% else %}
+
+		{% endfor %}
+	</div>
+
+	<div class="container">
+		{% if candidates|length == 0 %}
+			<h3 class="mt-3">No candidates available 😥</h3>
+		{% elseif candidates|length == 1 %}
+			<h3 class="mt-3">You have one candidate available.</h3>
+		{% else %}
+			<h3 class="mt-3">There are
+				{{candidates|length}}
+				candidates available
+																																												so far !
+			</h3>
+		{% endif %}
+		{% if is_granted('ROLE_COMPANY') %}
+			{% for candidate in candidates %}
+				<div class="card border-secondary my-3 glass-candidate text-white">
+					<div class="card-header">
+						<p class="text-decoration-none p-3">{{candidate.email}}</p>
+					</div>
+					<div class="card-footer text-muted">
+						<span>
+							<a href="mailto:{{candidate.email}}" class="btn btn-primary">Contact</a>
+							{# <a href={{ path('app_offer_edit', {'id' : offer.id} ) }} class="btn btn-warning">Edit offer</a> #}
+						</span>
+					</div>
+				</div>
+
+				{% else %}
+
+			{% endfor %}
+		{% endif %}
 	</div>
 {% endblock %}
