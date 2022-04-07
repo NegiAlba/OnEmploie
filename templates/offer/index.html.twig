@@ -8,6 +8,12 @@
 		<div class="card border-secondary my-3 glass-post text-black">
 			<div class="card-header">
 				<p class="text-decoration-none">{{offer.title}}</p>
+				{% if offer.author.logo is empty %}
+
+					{% else %}
+						<img src={{ vich_uploader_asset(offer.author) }} alt={{offer.title}} height="50">
+				{% endif %}
+
 				<small class="text-decoration-none">{{offer.author.name}}</small>
 			</div>
 			<div class="card-footer text-muted d-flex justify-content-between">
